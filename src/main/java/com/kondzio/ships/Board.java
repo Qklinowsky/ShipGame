@@ -13,7 +13,8 @@ public class Board {
         this.ySize = ySize;
         ships = new ArrayList<Ship>();
     }
-    public void addShip(Ship ship){
+
+    public void addShip(Ship ship) {
         ships.add(ship);
     }
 
@@ -28,11 +29,31 @@ public class Board {
     public boolean doesCollideWithAnyShip(List<Point> coordinates) {
         for (Ship ship : ships) {
             for (Point coordinate : coordinates) {
-                if(ship.collides(coordinate)){
+                if (ship.collides(coordinate)) {
                     return true;
                 }
             }
 
+        }
+        return false;
+    }
+
+    public boolean isHit(Point point) {
+        for (Ship ship : ships) {
+            ShipPart hit = ship.isHit(point);
+            if (hit != null) {
+                hit.markHit();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasHealthyShips() {
+        for (Ship ship : ships) {
+            if (ship.hasHealthyParts()) {
+                return true;
+            }
         }
         return false;
     }
