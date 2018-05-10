@@ -39,9 +39,11 @@ public class ShipCoordinatesGenerator {
         Direction direction = generateRandomDirection();
         ArrayList<Point> coordinates = new ArrayList<Point>();
         coordinates.add(generatedPoint);
+        Point previousPoint = generatedPoint;
         for (int i = 1; i < size; i++) {
-            Point point = new Point(generatedPoint.getX() + direction.getX(), generatedPoint.getY() + direction.getY());
+            Point point = new Point(previousPoint.getX() + direction.getX(), previousPoint.getY() + direction.getY());
             coordinates.add(point);
+            previousPoint = point;
         }
         return coordinates;
     }

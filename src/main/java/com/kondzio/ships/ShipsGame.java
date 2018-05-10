@@ -1,5 +1,7 @@
 package com.kondzio.ships;
 
+import com.kondzio.ships.ui.GameWindow;
+
 public class ShipsGame {
     public static void main(String[] args) {
         GameSpecs gameSpecs = new GameSpecs(10, 10);
@@ -8,8 +10,8 @@ public class ShipsGame {
         gameSpecs.addShip(2, 4);
         Board board = createBoard(gameSpecs);
         GameEngine gameEngine = new GameEngine(board);
+        GameWindow gameWindow = new GameWindow(board);
         gameEngine.startGame();
-
 
     }
 

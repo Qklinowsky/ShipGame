@@ -15,7 +15,7 @@ public class GameEngine {
         while (board.hasHealthyShips()) {
             System.out.println("Podaj koordynaty!");
             String choice = scanner.nextLine();
-            boolean isHit = board.isHit(translator.translate(choice));
+            boolean isHit = board.attemptHit(translator.translate(choice));
             if (isHit) {
                 System.out.println("Trafiony");
             } else {

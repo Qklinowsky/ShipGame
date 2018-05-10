@@ -1,5 +1,5 @@
 package com.kondzio.ships;
 
 public enum ShipStatus {
-    HIT, HEALTHY;
+    HIT, HEALTHY, MISS, EMPTY;
 }

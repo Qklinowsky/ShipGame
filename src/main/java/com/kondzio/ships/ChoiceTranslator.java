@@ -1,5 +1,8 @@
 package com.kondzio.ships;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChoiceTranslator {
     public Point translate(String string) {
         String xChoice = string.substring(0, 1);
@@ -21,6 +24,22 @@ public class ChoiceTranslator {
         } else {
             throw new IllegalArgumentException(string);
         }
+    }
+
+    public String[] createRowHeaders(int size){
+        List<String> rowHeaders = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            String s = Character.toString((char) (97 + i));
+            rowHeaders.add(s);
+        }
+        return rowHeaders.toArray(new String[]{});
+    }
+    public String[] createColumnHeaders(int size){
+        List<String> columnHeaders = new ArrayList<>();
+        for (int i = 1; i <= size; i++) {
+            columnHeaders.add(i+ "");
+        }
+        return columnHeaders.toArray(new String[]{});
     }
 
 }

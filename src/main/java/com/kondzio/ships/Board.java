@@ -7,11 +7,12 @@ public class Board {
     private final int xSize;
     private final int ySize;
     private final List<Ship> ships;
-
+    private List<Point> failedAttempts;
     public Board(int xSize, int ySize) {
         this.xSize = xSize;
         this.ySize = ySize;
-        ships = new ArrayList<Ship>();
+        ships = new ArrayList<>();
+        failedAttempts = new ArrayList<>();
     }
 
     public void addShip(Ship ship) {
@@ -38,9 +39,9 @@ public class Board {
         return false;
     }
 
-    public boolean isHit(Point point) {
+    public boolean attemptHit(Point point) {
         for (Ship ship : ships) {
-            ShipPart hit = ship.isHit(point);
+            ShipPart hit = ship.isShipPart(point);
             if (hit != null) {
                 hit.markHit();
                 return true;
@@ -56,6 +57,28 @@ public class Board {
             }
         }
         return false;
+    }
+
+
+    public void pickField(Point point) {
+
+        if(!this.attemptHit(point)){
+            failedAttempts.add(point);
+        }
+    }
+
+    public ShipStatus getFieldStatus(Point point) {
+        for (Ship ship : ships) {
+            ShipPart shipPart = ship.isShipPart(point);
+            if(shipPart != null){
+                return shipPart.getStatus();
+            }
+        }
+        if(failedAttempts.contains(point)){
+            return ShipStatus.MISS;
+        }else{
+            return ShipStatus.EMPTY;
+        }
     }
 }
 

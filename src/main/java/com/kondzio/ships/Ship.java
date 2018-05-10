@@ -36,7 +36,7 @@ public class Ship {
         return points;
     }
 
-    public ShipPart isHit(Point point) {
+    public ShipPart isShipPart(Point point) {
         for (ShipPart coordinate : coordinates) {
             if (coordinate.getPoint().equals(point)) {
                 return coordinate;
