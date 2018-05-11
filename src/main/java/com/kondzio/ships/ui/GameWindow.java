@@ -18,13 +18,19 @@ public class GameWindow extends JFrame {
         int gridSizeY = board.getySize() + 1;
         this.board = board;
         setTitle("Ships");
-        setSize(1920, 1080);
+        setSize(1600, 1400);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        getContentPane().add(new BoardPanel(translator.createRowHeaders(board.getySize()), translator.createColumnHeaders(board.getxSize()), board));
+        getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        ScoreJPanel scoreJPanel = new ScoreJPanel();
+        getContentPane().add(scoreJPanel);
+        getContentPane().add(new BoardPanel(translator.createRowHeaders(board.getySize()),
+                translator.createColumnHeaders(board.getxSize()),
+                board,
+                scoreJPanel));
+        setVisible(true);
     }
 
 }

@@ -7,7 +7,10 @@ public class Board {
     private final int xSize;
     private final int ySize;
     private final List<Ship> ships;
+    private int movesCount = 0;
     private List<Point> failedAttempts;
+
+
     public Board(int xSize, int ySize) {
         this.xSize = xSize;
         this.ySize = ySize;
@@ -65,6 +68,7 @@ public class Board {
         if(!this.attemptHit(point)){
             failedAttempts.add(point);
         }
+        movesCount++;
     }
 
     public ShipStatus getFieldStatus(Point point) {
@@ -79,6 +83,10 @@ public class Board {
         }else{
             return ShipStatus.EMPTY;
         }
+    }
+
+    public int getMoveCount() {
+        return movesCount;
     }
 }
 
