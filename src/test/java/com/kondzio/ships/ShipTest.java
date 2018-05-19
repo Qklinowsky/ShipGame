@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,6 +12,23 @@ import static com.kondzio.ships.Point.point;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ShipTest {
+    @Test
+    void isViableShipPart() {
+        Ship ship = new Ship(Collections.singletonList(point(1, 1)));
+        Assertions.assertThat(ship.isViableShipPart(Point.point(1,2))).isTrue();
+        Assertions.assertThat(ship.isViableShipPart(Point.point(1,1))).isFalse();
+        Assertions.assertThat(ship.isViableShipPart(Point.point(3,4))).isFalse();
+
+        Ship ship1 = new Ship(Arrays.asList(Point.point(1, 1), Point.point(1, 2)));
+        Assertions.assertThat(ship1.isViableShipPart(Point.point(1,0))).isTrue();
+        Assertions.assertThat(ship1.isViableShipPart(Point.point(1,3))).isTrue();
+        Assertions.assertThat(ship1.isViableShipPart(Point.point(1,2))).isFalse();
+        Assertions.assertThat(ship1.isViableShipPart(Point.point(2,1))).isFalse();
+        Assertions.assertThat(ship1.isViableShipPart(Point.point(3,4))).isFalse();
+
+
+    }
+
     @Test
     void collides1() {
         ArrayList<Point> points = new ArrayList<Point>();

@@ -1,6 +1,8 @@
 package com.kondzio.ships.ui;
 
 import com.kondzio.ships.Board;
+import com.kondzio.ships.ChoiceTranslator;
+import com.kondzio.ships.GameSpecs;
 import com.kondzio.ships.Point;
 
 import javax.swing.*;
@@ -12,11 +14,12 @@ public class BoardPanel extends JPanel {
 
     public static final int CELL_HEIGHT = 80;
     public static final int CELL_WIDTH = 80;
-    private ScoreJPanel scoreJPanel;
+    private ChoiceTranslator translator = new ChoiceTranslator();
 
 
-    public BoardPanel(String[] rowHeaders, String[] columnHeaders, Board board, ScoreJPanel scoreJPanel) {
-        this.scoreJPanel = scoreJPanel;
+    public BoardPanel(GameSpecs gameSpecs, Board board) {
+        String[] rowHeaders = translator.createRowHeaders(gameSpecs.getySize());
+        String[] columnHeaders = translator.createColumnHeaders(gameSpecs.getxSize());
         ListModel rowHeadersModel = new AbstractListModel() {
 
             public int getSize() {
@@ -28,7 +31,7 @@ public class BoardPanel extends JPanel {
             }
         };
 
-        DefaultTableModel dm = new DefaultTableModel(rowHeadersModel.getSize(), board.getxSize());
+        DefaultTableModel dm = new DefaultTableModel(rowHeadersModel.getSize(), gameSpecs.getxSize());
         JTable table = new JTable(dm);
         table.setRowHeight(CELL_HEIGHT);
         int columnCount = table.getColumnCount();
@@ -46,12 +49,12 @@ public class BoardPanel extends JPanel {
 
         rowHeader.setCellRenderer(new RowHeaderRenderer(table));
 
-        BoardJTableModel boardJTableModel = new BoardJTableModel(board, columnHeaders);
+        BoardJTableModel boardJTableModel = new SetupBoardTableModel(board, columnHeaders);
 
         table.setModel(boardJTableModel);
 
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setPreferredSize(new Dimension(CELL_WIDTH * (board.getxSize() + 1), CELL_HEIGHT * (board.getySize() + 1)));
+        scroll.setPreferredSize(new Dimension(CELL_WIDTH * (gameSpecs.getxSize() + 1), CELL_HEIGHT * (gameSpecs.getySize() + 1)));
         scroll.setRowHeaderView(rowHeader);
         add(scroll, BorderLayout.CENTER);
 
@@ -67,14 +70,13 @@ public class BoardPanel extends JPanel {
                 int row = table.rowAtPoint(evt.getPoint());
                 int col = table.columnAtPoint(evt.getPoint());
                 if (row >= 0 && col >= 0) {
-//                    boolean hit = board.attemptHit(Point.point(row, col));
-                    board.pickField(Point.point(row, col));
-                    table.getModel().setValueAt(null, row, col);
-                    scoreJPanel.setScore(board.getMoveCount());
+//                    if(board.doesCollideWithAnyShip())
+                    board.addNewPoint(Point.point(row,col));
                 }
-
+                table.repaint();
             }
         });
     }
+
 
 }

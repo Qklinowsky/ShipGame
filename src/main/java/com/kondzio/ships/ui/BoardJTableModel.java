@@ -9,10 +9,10 @@ import javax.swing.table.DefaultTableModel;
 public class BoardJTableModel extends DefaultTableModel {
 
 
-    private static final Icon SHIP_ICON = new ImageIcon(BoardJTableModel.class.getResource("/full.png"));
-    private static final Icon EMPTY_ICON = new ImageIcon(BoardJTableModel.class.getResource("/empty.png"));
-    private static final Icon MISS_ICON = new ImageIcon(BoardJTableModel.class.getResource("/miss.png"));
-    private Board board;
+    protected static final Icon SHIP_ICON = new ImageIcon(BoardJTableModel.class.getResource("/full.png"));
+    protected static final Icon EMPTY_ICON = new ImageIcon(BoardJTableModel.class.getResource("/empty.png"));
+    protected static final Icon MISS_ICON = new ImageIcon(BoardJTableModel.class.getResource("/miss.png"));
+    protected Board board;
 
     public BoardJTableModel(Board board, String[] columnHeaders) {
         this.board = board;

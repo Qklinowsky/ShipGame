@@ -1,6 +1,7 @@
 package com.kondzio.ships;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Board {
@@ -87,6 +88,43 @@ public class Board {
 
     public int getMoveCount() {
         return movesCount;
+    }
+
+    public boolean isConsistentWith(GameSpecs gameSpecs) {
+
+        for (GameSpecs.ShipSpec shipSpec : gameSpecs.getShipSpecs()) {
+            ArrayList<Ship> matchingShips = new ArrayList<>();
+            for (Ship ship : this.ships) {
+                if(ship.getSize() == shipSpec.getSize() ){
+                    matchingShips.add(ship);
+                }
+
+            }
+            if(shipSpec.getQuantity() != matchingShips.size()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void addShipPart(Point point) {
+        ships.add(new Ship(Collections.singletonList(point)));
+    }
+
+    public void addNewPoint(Point point){
+        for (Ship ship : ships) {
+            if(ship.isViableShipPart(point)){
+                ship.addShipPart(point);
+                return;
+            }
+
+
+        }
+        if(doesCollideWithAnyShip(Collections.singletonList(point))){
+            return;
+        }
+        addShip(new Ship(Collections.singletonList(point)));
+
     }
 }
 

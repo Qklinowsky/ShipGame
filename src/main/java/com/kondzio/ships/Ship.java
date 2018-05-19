@@ -53,4 +53,63 @@ public class Ship {
         }
         return false;
     }
+
+    public int getSize() {
+        return coordinates.size();
+    }
+
+    public boolean isViableShipPart(Point point) {
+        if (coordinates.size() >= 2) {
+            int xMin = Integer.MAX_VALUE;
+            int xMax = 0;
+            int yMin = Integer.MAX_VALUE;
+            int yMax = 0;
+            for (ShipPart coordinate : coordinates) {
+                int x = coordinate.getPoint().getX();
+                int y = coordinate.getPoint().getY();
+
+                if (x < xMin) {
+                    xMin = x;
+                }
+                if (x > xMax) {
+                    xMax = x;
+                }
+                if (y < yMin) {
+                    yMin = y;
+                }
+                if (y > yMax) {
+                    yMax = y;
+                }
+            }
+            if (xMin == xMax) {
+                Point nextPossiblePart = Point.point(xMin, yMin - 1);
+                Point nextPossiblePart1 = Point.point(xMin, yMax + 1);
+
+                return point.equals(nextPossiblePart) || point.equals(nextPossiblePart1);
+            }
+            if (yMin == yMax) {
+                Point nextPossiblePart = Point.point(xMin - 1, yMin);
+                Point nextPossiblePart1 = Point.point(xMax + 1, yMin);
+
+                return point.equals(nextPossiblePart) || point.equals(nextPossiblePart1);
+            }
+
+        } else {
+            ShipPart shipPart = coordinates.get(0);
+            int x = shipPart.getPoint().getX();
+            int y = shipPart.getPoint().getY();
+            Point nextPossiblePart = Point.point(x + 1, y);
+            Point nextPossiblePart1 = Point.point(x - 1, y);
+            Point nextPossiblePart2 = Point.point(x, y + 1);
+            Point nextPossiblePart3 = Point.point(x, y - 1);
+
+            return point.equals(nextPossiblePart) || point.equals(nextPossiblePart1) || point.equals(nextPossiblePart2) ||
+                    point.equals(nextPossiblePart3);
+        }
+        return false;
+    }
+
+    public void addShipPart(Point point) {
+        coordinates.add(new ShipPart(point));
+    }
 }

@@ -26,10 +26,10 @@ public class GameWindow extends JFrame {
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         ScoreJPanel scoreJPanel = new ScoreJPanel();
         getContentPane().add(scoreJPanel);
-        getContentPane().add(new BoardPanel(translator.createRowHeaders(board.getySize()),
-                translator.createColumnHeaders(board.getxSize()),
-                board,
-                scoreJPanel));
+//        getContentPane().add(new BoardPanel(translator.createRowHeaders(board.getySize()),
+//                translator.createColumnHeaders(board.getxSize()),
+//                board,
+//                scoreJPanel));
         setVisible(true);
     }
 
