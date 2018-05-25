@@ -14,12 +14,10 @@ public class BoardPanel extends JPanel {
 
     public static final int CELL_HEIGHT = 80;
     public static final int CELL_WIDTH = 80;
-    private ChoiceTranslator translator = new ChoiceTranslator();
 
 
-    public BoardPanel(GameSpecs gameSpecs, Board board) {
-        String[] rowHeaders = translator.createRowHeaders(gameSpecs.getySize());
-        String[] columnHeaders = translator.createColumnHeaders(gameSpecs.getxSize());
+    public BoardPanel(int sizeX, int sizeY, BoardJTableModel boardJTableModel, String[] rowHeaders, OnSelectAction onSelectAction) {
+
         ListModel rowHeadersModel = new AbstractListModel() {
 
             public int getSize() {
@@ -31,7 +29,7 @@ public class BoardPanel extends JPanel {
             }
         };
 
-        DefaultTableModel dm = new DefaultTableModel(rowHeadersModel.getSize(), gameSpecs.getxSize());
+        DefaultTableModel dm = new DefaultTableModel(rowHeadersModel.getSize(), sizeX);
         JTable table = new JTable(dm);
         table.setRowHeight(CELL_HEIGHT);
         int columnCount = table.getColumnCount();
@@ -49,32 +47,26 @@ public class BoardPanel extends JPanel {
 
         rowHeader.setCellRenderer(new RowHeaderRenderer(table));
 
-        BoardJTableModel boardJTableModel = new SetupBoardTableModel(board, columnHeaders);
 
         table.setModel(boardJTableModel);
 
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setPreferredSize(new Dimension(CELL_WIDTH * (gameSpecs.getxSize() + 1), CELL_HEIGHT * (gameSpecs.getySize() + 1)));
+        scroll.setPreferredSize(new Dimension(CELL_WIDTH * (sizeX + 1), CELL_HEIGHT * (sizeY + 1)));
         scroll.setRowHeaderView(rowHeader);
         add(scroll, BorderLayout.CENTER);
 
         table.addMouseListener(new java.awt.event.MouseAdapter() {
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-                choose(e);
-            }
-
-
-            private void choose(MouseEvent evt) {
+            public void mouseReleased(MouseEvent evt) {
                 int row = table.rowAtPoint(evt.getPoint());
                 int col = table.columnAtPoint(evt.getPoint());
                 if (row >= 0 && col >= 0) {
-//                    if(board.doesCollideWithAnyShip())
-                    board.addNewPoint(Point.point(row,col));
+                    onSelectAction.perform(row, col);
                 }
                 table.repaint();
             }
+
         });
     }
 

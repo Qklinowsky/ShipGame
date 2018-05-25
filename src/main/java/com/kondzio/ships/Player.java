@@ -13,4 +13,14 @@ public abstract class Player {
     }
 
     public abstract Callable<Board> choseShipsLocation(GameSpecs gameSpecs);
+
+    public int getScore() {
+        return score;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public abstract void chooseField(Board enemyBoard);
 }

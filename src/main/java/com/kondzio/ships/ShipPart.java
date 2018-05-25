@@ -20,4 +20,12 @@ public class ShipPart {
     public void markHit() {
         status = ShipStatus.HIT;
     }
+
+    @Override
+    public String toString() {
+        return "ShipPart{" +
+                "point=" + point +
+                ", status=" + status +
+                '}';
+    }
 }

@@ -1,7 +1,5 @@
 package com.kondzio.ships;
 
-import com.kondzio.ships.ui.GameWindow;
-
 public class ShipsGame {
     public static void main(String[] args) {
         GameSpecs gameSpecs = new GameSpecs(10, 10);

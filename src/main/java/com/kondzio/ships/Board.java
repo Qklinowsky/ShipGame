@@ -126,5 +126,16 @@ public class Board {
         addShip(new Ship(Collections.singletonList(point)));
 
     }
+
+    @Override
+    public String toString() {
+        return "Board{" +
+                "xSize=" + xSize +
+                ", ySize=" + ySize +
+                ", ships=" + ships +
+                ", movesCount=" + movesCount +
+                ", failedAttempts=" + failedAttempts +
+                '}';
+    }
 }
 

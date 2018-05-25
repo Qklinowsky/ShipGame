@@ -112,4 +112,11 @@ public class Ship {
     public void addShipPart(Point point) {
         coordinates.add(new ShipPart(point));
     }
+
+    @Override
+    public String toString() {
+        return "Ship{" +
+                "coordinates=" + coordinates +
+                '}';
+    }
 }
