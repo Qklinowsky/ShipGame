@@ -23,7 +23,7 @@ public class HumanPlayer extends Player {
         return new Callable<Board>() {
             @Override
             public Board call() throws Exception {
-                Board board = new Board(gameSpecs.getxSize(), gameSpecs.getySize());
+                Board board = new Board(gameSpecs);
                 GameSetupWindow gameSetupWindow = new GameSetupWindow(gameSpecs, board);
                 while (!board.isConsistentWith(gameSpecs)) {
                     Thread.sleep(1000);

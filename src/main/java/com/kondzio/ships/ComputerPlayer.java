@@ -19,7 +19,7 @@ public class ComputerPlayer extends Player {
         return new Callable<Board>() {
             @Override
             public Board call() throws Exception {
-                Board board = new Board(gameSpecs.getxSize(), gameSpecs.getySize());
+                Board board = new Board(gameSpecs);
                 ShipCoordinatesGenerator shipGenerator = new ShipCoordinatesGenerator();
                 for (GameSpecs.ShipSpec shipSpec : gameSpecs.getShipSpecs()) {
                     for (int i = 0; i < shipSpec.getQuantity(); i++) {

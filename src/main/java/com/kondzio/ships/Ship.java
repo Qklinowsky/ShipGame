@@ -5,6 +5,12 @@ import java.util.List;
 
 public class Ship {
     private final List<ShipPart> coordinates;
+    private final int desireSize;
+
+    public Ship(int desireSize) {
+        this.desireSize = desireSize;
+        coordinates = new ArrayList<>();
+    }
 
     public Ship(List<Point> coordinates) {
         List<ShipPart> shipParts = new ArrayList<>();
@@ -12,6 +18,7 @@ public class Ship {
             ShipPart shipPart = new ShipPart(coordinate);
             shipParts.add(shipPart);
         }
+        this.desireSize = shipParts.size();
         this.coordinates = shipParts;
     }
 
@@ -113,10 +120,15 @@ public class Ship {
         coordinates.add(new ShipPart(point));
     }
 
+
     @Override
     public String toString() {
         return "Ship{" +
                 "coordinates=" + coordinates +
                 '}';
+    }
+
+    public boolean isDesiredSize() {
+        return desireSize == coordinates.size();
     }
 }
